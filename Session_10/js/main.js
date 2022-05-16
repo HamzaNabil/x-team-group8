@@ -135,3 +135,11 @@ function deleteUser(id) {
   users = users.filter((user) => user.id != id);
   listUsers(users);
 }
+
+// Task .. simple Pagination
+// [ ]
+// 100 Products
+// 10 Pages
+// 100 / 10 = Products Per Page
+
+// 1 2 3 ... 10
