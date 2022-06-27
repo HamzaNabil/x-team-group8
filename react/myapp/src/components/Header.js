@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 
 // How to write State in function Component
 // props => object props: {txt: header1. x:1 ,y: 2}
 // Note: dont print object in jsx
 function Header(props) {
-  console.log(props);
-  return <h1 className="header"> {props.txt} </h1>;
+  let [header, setHeader] = useState("");
+
+  return (
+    <h1 className="header">
+      {props.txt} - {props.hamada}
+    </h1>
+  );
 }
 
 export default Header;

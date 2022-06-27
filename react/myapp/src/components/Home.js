@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Home(props) {
-  console.log(props);
+  // let [posts, setPosts] = useState([]);
+  let [check, setCheck] = useState(true);
+
+  // useEffect(function () {
+  //   fetch("https://jsonplaceholder.typicode.com/posts")
+  //     .then(function (res) {
+  //       return res.json();
+  //     })
+  //     .then(function (data) {
+  //       setPosts(data);
+  //     });
+  // }, []);
+
+  let [count, setCount] = useState(0);
+
+  let handleCount = function () {
+    setCount(count + 1);
+  };
+
+  useEffect(function () {
+    console.log("test useEffect");
+  }, []);
+
   return (
     <div>
-      {/* [1,2,3] */}
-      {props.info.map(function (item) {
-        return <p> {item} </p>;
-      })}
       <h1>Home Comp</h1>
-      <p>This is Home Comp</p>
+
+      {check ? <p>This is Home Comp</p> : ""}
+
+      {count}
+      <button onClick={handleCount}> +1 </button>
+
+      {/* {posts.map(function (item) {
+        return <p>{item.title}</p>;
+      })} */}
     </div>
   );
 }
