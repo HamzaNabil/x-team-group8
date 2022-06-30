@@ -1,65 +1,72 @@
-// Create Component = function
-
-// Component = part of website [ header , footer ,sidebar , button, a , img, section, icon]
-// pages = Home - About - Contact - Products - Features
-
 import React, { useState } from "react";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Contact from "./pages/Contact";
 
-import Header from "./components/Header";
-import Home from "./components/Home";
-import About from "./components/About";
-import Data from "./components/Data";
-import Login from "./components/Login";
-// Hooks => functions
-// Props is data passed from parent comp to child comp
-// State is object hold data related to the component
-
-// State => private
-// Props => Public
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
-  let [text, setText] = useState("App Component");
-  let [count, setCount] = useState(0);
-  let [products, setProducts] = useState([{ name: "lab" }, { name: "mouse" }]);
+  let [products, setProducts] = useState([
+    {
+      id: 1,
+      name: "Lab",
+      price: "8000 LE",
+    },
+    {
+      id: 2,
+      name: "Keyboard",
+      price: "500 LE",
+    },
+    {
+      id: 3,
+      name: "Mouse",
+      price: "200 LE",
+    },
+  ]);
 
-  let handleClick = function () {
-    setText("App Comp 2");
+  let [name, setName] = useState("");
+  let [price, setPrice] = useState("");
+
+  let deleteProduct = function (id) {
+    setProducts(products.filter((item) => item.id != id));
   };
 
-  let handleIncrease = function () {
-    setCount(count + 1);
-  };
-  let handleDecrease = function () {
-    setCount(count - 1);
-  };
-
-  let handleAddProduct = function () {
-    setProducts([...products, { name: "keyboard" }]);
+  let addProduct = (e) => {
+    e.preventDefault();
+    setProducts([
+      ...products,
+      { id: products.length + 1, name: name, price: price },
+    ]);
   };
 
   return (
-    <>
-      {/* <Header txt="This is header 1" hamada={text} />
-      <h1> {text} </h1>
-      <button onClick={handleClick}> change text </button>
-      <hr />
+    <BrowserRouter>
+      <Navbar />
 
-      <p>{count}</p>
-      <button onClick={handleIncrease}> +1 </button>
-      <button onClick={handleDecrease}> -1 </button>
-
-      <hr />
-      <Data x={products} />
-
-      <button onClick={handleAddProduct}> Add New Item</button>
-      <hr /> */}
-      <Home />
-      <Login />
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/products"
+          element={
+            <Products
+              data={products}
+              deleteProduct={deleteProduct}
+              setName={setName}
+              setPrice={setPrice}
+              addProduct={addProduct}
+            />
+          }
+        />
+        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/products/:id"
+          element={<ProductDetails data={products} />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
-// App() => Js
-// <App /> => React
